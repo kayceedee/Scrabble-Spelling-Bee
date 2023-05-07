@@ -1,0 +1,71 @@
+import random
+import os
+from nltk.corpus import words
+words = words.words()
+vowels = ['a', 'e', 'i', 'o', 'u']
+consonants = ['b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'p', 'q', 'r', 's', 't', 'v', 'w', 'x', 'y', 'z']
+
+letters = []
+for i in range(3):
+    letter = random.choice(vowels)
+    letters.append(letter)
+    vowels.remove(letter)
+for i in range(4):
+    letter = random.choice(consonants)
+    letters.append(letter)
+    consonants.remove(letter)
+def find_points(word):
+    points = {'a': 1, 'b': 3, 'c': 3, 'd': 2, 'e': 1, 'f': 4, 'g': 2, 'h': 4, 'i': 1, 'j': 8, 'k': 5, 'l': 1, 'm': 3, 'n': 1, 'o': 1, 'p': 3, 'q': 10, 'r': 1, 's': 1, 't': 1, 'u': 1, 'v': 4, 'w': 4, 'x': 8, 'y': 4, 'z': 10}
+    total = 0
+    for i in range(len(word)):
+        total += points[word[i]]
+    return total
+def valid_words(words, letters):
+    wordsv = []
+    for i in range(len(letters)):
+        letters[i] = letters[i].lower()
+    for word1 in words:
+        word = word1.lower()
+        valid_list = []
+        for i in range(len(word)):
+            if word[i] in letters:
+                valid_list.append(True)
+            else:
+                valid_list.append(False)
+        if all(valid_list):
+            wordsv.append(word)
+    return wordsv
+vwords1 = valid_words(words, letters)
+vwords = []
+for i in range(len(vwords1)):
+    if len(vwords1[i]) >= 3:
+        vwords.append(vwords1[i])
+def main():
+    os.system('cls')
+    words_foundstr = []
+    words_found = 0
+    points = 0
+    print('         Spelling Bee Game!        ')
+    print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+    print('Type a word or type "#end" to exit.')
+    print('Letters:', ', '.join(letters))
+    while True:
+        word = input('Word: ').lower()
+        if word == '#end':
+            break
+        elif word in vwords and word not in words_foundstr:
+            words_found += 1
+            points += find_points(word)
+            words_foundstr.append(word)
+            print('Correct!')
+        else:
+            print('Wrong!')
+    if words_found == 1:
+        print(f'You found {words_found} word!')
+    else:
+        print(f'You found {words_found} words!')
+    if points == 1:
+        print(f'You found {points} point!')
+    else:
+        print(f'You found {points} points!')
+main()
