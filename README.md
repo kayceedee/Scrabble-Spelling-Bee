@@ -3,4 +3,4 @@ Be sure to run this in your python IDE:
 
 >>> nltk.download('words')
 
-Enjoy!
+And enjoy!
