@@ -65,7 +65,7 @@ def main():
     else:
         print(f'You found {words_found} words!')
     if points == 1:
-        print(f'You found {points} point!')
+        print(f'You have {points} point!')
     else:
-        print(f'You found {points} points!')
+        print(f'You have {points} points!')
 main()
